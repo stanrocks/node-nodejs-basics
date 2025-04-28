@@ -1,11 +1,11 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-const copy = async () => {
-  const dirName = import.meta.dirname;
-  const srcDir = path.join(dirName, 'files');
-  const destDir = path.join(dirName, 'files_copy');
+const dirName = import.meta.dirname;
+const srcDir = path.join(dirName, 'files');
+const destDir = path.join(dirName, 'files_copy');
 
+const copy = async () => {
   try {
     await fs.readdir(srcDir);
 
