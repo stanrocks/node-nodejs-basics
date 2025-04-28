@@ -1,12 +1,10 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'url';
 
 const copy = async () => {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-  const srcDir = path.join(__dirname, 'files');
-  const destDir = path.join(__dirname, 'files_copy');
+  const dirName = import.meta.dirname;
+  const srcDir = path.join(dirName, 'files');
+  const destDir = path.join(dirName, 'files_copy');
   const copyMode = fs.constants.COPYFILE_EXCL;
 
   const pathExists = async (filePath) => {

@@ -1,11 +1,9 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'url';
 
 const create = async () => {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-  const filePath = path.join(__dirname, 'files', 'fresh.txt');
+  const dirName = import.meta.dirname;
+  const filePath = path.join(dirName, 'files', 'fresh.txt');
   const content = 'I am fresh and young';
   const options = { flag: 'wx' };
 
