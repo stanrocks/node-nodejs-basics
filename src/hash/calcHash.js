@@ -10,6 +10,10 @@ const calculateHash = async () => {
   const readable = fs.createReadStream(filePath);
 
   readable.pipe(hash).setEncoding('hex').pipe(process.stdout);
+
+  readable.on('end', () => {
+    process.stdout.write('\n');
+  });
 };
 
 await calculateHash();
