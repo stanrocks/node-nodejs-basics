@@ -7,31 +7,18 @@ const copy = async () => {
   const destDir = path.join(dirName, 'files_copy');
   const copyMode = fs.constants.COPYFILE_EXCL;
 
-  const pathExists = async (filePath) => {
-    try {
-      await fs.access(filePath);
-      return true;
-    } catch (error) {
-      if (error.code === 'ENOENT') return false;
-      throw error;
+  try {
+    const filesToCopy = await fs.readdir(srcDir);
+
+    await fs.mkdir(destDir);
+
+    for (const file of filesToCopy) {
+      const srcFile = path.join(srcDir, file);
+      const destFile = path.join(destDir, file);
+      await fs.copyFile(srcFile, destFile, copyMode);
     }
-  };
-
-  const srcExists = await pathExists(srcDir);
-  const destExists = await pathExists(destDir);
-
-  if (!srcExists || destExists) {
+  } catch (error) {
     throw new Error('FS operation failed');
-  }
-
-  await fs.mkdir(destDir);
-
-  const filesToCopy = await fs.readdir(srcDir);
-
-  for (const file of filesToCopy) {
-    const srcFile = path.join(srcDir, file);
-    const destFile = path.join(destDir, file);
-    await fs.copyFile(srcFile, destFile, copyMode);
   }
 };
 
