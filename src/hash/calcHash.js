@@ -1,5 +1,15 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+
+const dirName = import.meta.dirname;
+const filePath = path.join(dirName, 'files', 'fileToCalculateHashFor.txt');
+
 const calculateHash = async () => {
-    // Write your code here 
+  const hash = crypto.createHash('sha256');
+  const readable = fs.createReadStream(filePath);
+
+  readable.pipe(hash).setEncoding('hex').pipe(process.stdout);
 };
 
 await calculateHash();
